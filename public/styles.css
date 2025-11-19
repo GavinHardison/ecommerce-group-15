@@ -1,0 +1,25 @@
+* {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-size: 36px;
+}
+
+header {
+    background-color: #4B3F72;
+    color: #ccc;
+    padding: 20px;
+}
+
+body {
+    background-color: #1F2041;
+    color: #ccc;
+}
+
+h2 {
+    font-size: 24px;
+    margin: 20px;
+}
