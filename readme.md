@@ -1,2 +1,2 @@
-Group 15: Gavin Hardison, Emily Ha, Aiden Wang
+Group 15: 
 Ecommerce website that sells planets.
