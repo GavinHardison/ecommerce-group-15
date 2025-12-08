@@ -66,6 +66,7 @@ const starSystems = [
 app.use(express.json());
 app.use(express.static("public"))
 app.use(express.static("images"))
+app.use(express.static("pages"))
 
 app.get('/', (req, res) => {
     res.sendFile(htmlPath, (err) => {
@@ -80,5 +81,5 @@ app.get('/planets', (req, res) => {
 })
 
 app.listen(PORT, () => {
-    console.log(`http://localhost:${PORT}`)
+    console.log(`http://localhost:${PORT} and the time is ${new Date()}`)
 })
