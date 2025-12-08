@@ -1,11 +1,16 @@
 const express = require('express')
 const app = express()
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3000 
 const path = require('path')
 
 const htmlPath = path.join(__dirname, 'public/index.html')
 
-app.use(express.static(path.join(__dirname, 'public')))
+const planets = [
+    "sun"
+]; 
+
+app.use(express.json());
+app.use(express.static("public"))
 
 app.get('/', (req, res) => {
     res.sendFile(htmlPath, (err) => {
@@ -15,7 +20,10 @@ app.get('/', (req, res) => {
         }
     });
 })
+app.get('/planets', (req, res) => {
+    res.json(planets);
+})
 
 app.listen(PORT, () => {
-    console.log(`listening on port ${PORT}`)
+    console.log(`http://localhost:${PORT}`)
 })

@@ -2,10 +2,10 @@
   "name": "ecommerce",
   "version": "1.0.0",
   "description": "Group 15: Website that sells planets.",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
@@ -16,5 +16,6 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.11"
-  }
+  },
+  "type": "commonjs"
 }
