@@ -29,9 +29,14 @@ if (!window.location.host || window.location.protocol.substring(0, "file:".lengt
             // p.textContent = "Couldn't find that word.";
             document.body.style.backgroundColor = "blue1";
         }
+
+        // Remove all planets from the website; prepare to show the new ones
         document.getElementById("planets-left").innerHTML = "";
-        let image = document.createElement("h4"); // this should be an image some day
-        image.textContent = "you";  
+
+        // 50275 TODO: load more; make solar systems distinct
+        let image = document.createElement("img"); // this should be an image some day
+        image.src = data[0].src; 
+        image.loading = "lazy"; 
         document.getElementById("planets-left").appendChild(image); 
     }
     document.body.style.backgroundColor = "lightblue";
