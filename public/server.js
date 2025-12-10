@@ -3,7 +3,12 @@ const app = express()
 const PORT = process.env.PORT || 3000 
 const path = require('path')
 
-const htmlPath = path.join(__dirname, 'public/index.html')
+app.use(express.json());
+let x = path.join(__dirname, '..', 'images');
+console.log(x)
+app.use(express.static(x));
+app.use(express.static("../pages")) // currently unused
+app.use(express.static(__dirname))
 
 // 50275: you should contact me for more information but I'm tired rn
 // this array contains objects, some of which will be passed to the user -- decided at runtime
@@ -63,13 +68,9 @@ const starSystems = [
     ]
 ]; 
 
-app.use(express.json());
-app.use(express.static("public"))
-app.use(express.static("images"))
-app.use(express.static("pages"))
 
 app.get('/', (req, res) => {
-    res.sendFile(htmlPath, (err) => {
+    res.sendFile(path.join(__dirname, 'index.html'), (err) => {
         if (err) {
             console.error(err);
             res.status(500).send('An error has occurred');

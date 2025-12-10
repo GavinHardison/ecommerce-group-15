@@ -16,7 +16,7 @@ if (!window.location.host || window.location.protocol.substring(0, "file:".lengt
         let data = await response.json(); 
         if (!data.ok){
             // p.textContent = "Couldn't find that word.";
-            document.body.style.backgroundColor = "blue1";
+            document.body.style.backgroundColor = "blue";
         }
 
         // Remove all planets from the website; prepare to show the new ones
@@ -34,6 +34,7 @@ if (!window.location.host || window.location.protocol.substring(0, "file:".lengt
             image.id = "planet-image";
             image.src = planet.src; 
             image.loading = "lazy";
+            console.log(image.src); 
 
             let header = document.createElement("h4");
             header.id = "planet-text"; 
