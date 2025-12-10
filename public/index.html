@@ -1,54 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Planet Store</title>
+    <title>Planet Shop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="planet-styles.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 <body>
-    <header id="navbar">
+
+    <!-- Navbar -->
+    <nav id="navbar">
         <div id="title-div">
-            <h1><a>The Planet Store</a></h1>
+            <h1>Planet Shop</h1>
         </div>
         <div id="nav-links-div">
-            <div class="nav-link-div">
-                <h2 class="nav-link-text"><a>About</a></h2>
-            </div>
-            <div class="nav-link-div">
-                <h2 class="nav-link-text"><a>FAQ</a></h2>
-            </div>
-            <div id="user-profile-div" class="nav-link-div">
-                <h2 class="nav-link-text"><a>User Profile</a></h2>
-            </div>
-            <div id="search-div">
-                <input type="text" id="search-bar" placeholder="Search...">
-                <button type="button" id="search-button"> 
-                    <i class="material-icons">search</i>
-                </button>
-            </div>
+            <span class="nav-link-text">Home</span>
+            <span class="nav-link-text">Products</span>
+            <span class="nav-link-text">About</span>
+            <span class="nav-link-text">Contact</span>
+            <span class="nav-link-text">Login</span>
         </div>
-    </header>
-    <main id="main-content">
-        <div id="planets-left"> 
-            
+        <div id="search-div">
+            <input type="text" id="search-bar" placeholder="Search products...">
+            <button id="search-button">Search</button>
         </div>
-        <div id="planets-middle"> 
-            <img src="solar-system.png" alt="">
-            <!-- <img src="saturn.png" alt=""> -->
-        </div>
-        <div id="planets-right"> 
+    </nav>
 
+    <!-- Main content -->
+    <main id="main-content">
+        <div class="product-grid-div">
+            <div class="product-div">
+                <img class="product-image" src="images/mercury.png" alt="Product 1">
+                <h3 class="product-name">Mercury</h3>
+                <p class="product-price">$19.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+            <div class="product-div">
+                <img class="product-image" src="images/venus.png" alt="Product 2">
+                <h3 class="product-name">Venus</h3>
+                <p class="product-price">$24.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+            <div class="product-div">
+                <img class="product-image" src="images/earth.png" alt="Product 3">
+                <h3 class="product-name">Earth</h3>
+                <p class="product-price">$29.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+            <div class="product-div">
+                <img class="product-image" src="images/mars.png" alt="Product 4">
+                <h3 class="product-name">Mars</h3>
+                <p class="product-price">$24.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+            <div class="product-div">
+                <img class="product-image" src="images/jupiter.png" alt="Product 5">
+                <h3 class="product-name">Jupiter</h3>
+                <p class="product-price">$39.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+            <div class="product-div">
+                <img class="product-image" src="images/saturn.jpeg" alt="Product 6">
+                <h3 class="product-name">Saturn</h3>
+                <p class="product-price">$34.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+            <div class="product-div">
+                <img class="product-image" src="images/uranus.png" alt="Product 7">
+                <h3 class="product-name">Uranus</h3>
+                <p class="product-price">$29.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+            <div class="product-div">
+                <img class="product-image" src="images/neptune.png" alt="Product 8">
+                <h3 class="product-name">Neptune</h3>
+                <p class="product-price">$34.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+            <div class="product-div">
+                <img class="product-image" src="images/placeholder.jpg" alt="Product 9">
+                <h3 class="product-name">Product 9</h3>
+                <p class="product-price">$19.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+            <div class="product-div">
+                <img class="product-image" src="images/placeholder.jpg" alt="Product 10">
+                <h3 class="product-name">Product 10</h3>
+                <p class="product-price">$19.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+            <div class="product-div">
+                <img class="product-image" src="images/placeholder.jpg" alt="Product 11">
+                <h3 class="product-name">Product 11</h3>
+                <p class="product-price">$19.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+            <div class="product-div">
+                <img class="product-image" src="images/placeholder.jpg" alt="Product 12">
+                <h3 class="product-name">Product 12</h3>
+                <p class="product-price">$19.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+            <div class="product-div">
+                <img class="product-image" src="images/placeholder.jpg" alt="Product 13">
+                <h3 class="product-name">Product 13</h3>
+                <p class="product-price">$19.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+            <div class="product-div">
+                <img class="product-image" src="images/placeholder.jpg" alt="Product 14">
+                <h3 class="product-name">Product 14</h3>
+                <p class="product-price">$19.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+            <div class="product-div">
+                <img class="product-image" src="images/placeholder.jpg" alt="Product 15">
+                <h3 class="product-name">Product 15</h3>
+                <p class="product-price">$19.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+            <div class="product-div">
+                <img class="product-image" src="images/placeholder.jpg" alt="Product 16">
+                <h3 class="product-name">Product 16</h3>
+                <p class="product-price">$19.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+            <div class="product-div">
+                <img class="product-image" src="images/placeholder.jpg" alt="Product 17">
+                <h3 class="product-name">Product 17</h3>
+                <p class="product-price">$19.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+            <div class="product-div">
+                <img class="product-image" src="images/placeholder.jpg" alt="Product 18">
+                <h3 class="product-name">Product 18</h3>
+                <p class="product-price">$19.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+            <div class="product-div">
+                <img class="product-image" src="images/placeholder.jpg" alt="Product 19">
+                <h3 class="product-name">Product 19</h3>
+                <p class="product-price">$19.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
+            <div class="product-div">
+                <img class="product-image" src="images/placeholder.jpg" alt="Product 20">
+                <h3 class="product-name">Product 20</h3>
+                <p class="product-price">$19.99</p>
+                <button class="add-to-cart-button">Add to Cart</button>
+            </div>
         </div>
-        <script src="app.js"></script>
     </main>
+
+    <!-- Footer -->
     <footer>
-        <p>&copy; 2025 Ecommerce Store by Aiden, Emily, and Gavin</p>
+        <div class="footer-content">
+            &copy; 2025 My Shop. All rights reserved.
+        </div>
     </footer>
+
 </body>
 </html>
