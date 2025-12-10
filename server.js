@@ -65,9 +65,6 @@ app.listen(PORT, () => {
     console.log(`http://localhost:${PORT} and the time is ${new Date()}`)
 })
 
-// View engine
-app.set('view engine', 'pug')
-app.set('views', path.join(__dirname, 'views'))
 
 const starSystems = [
     [
