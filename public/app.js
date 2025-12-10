@@ -1,58 +1,35 @@
-// If you run the HTML file directly, destroy the website. You must run server.js. 
-if (!window.location.host || window.location.protocol.substring(0, "file:".length) == "file:"){
-    document.body.innerHTML = ""; 
-    let message = "You aren't opening this page correctly. You need to run server.js, then connect to http://localhost:<port>."; 
-    alert(message); 
-}
+/**
+ * replaceNavbar.js
+ * * This script finds the element with the ID 'navbar' and replaces
+ * its content with the standard Planet Shop navigation bar HTML.
+ */
 
-(async function() { 
-    let response = await fetch(`${window.location.origin}/planets`); 
-    if (!response.ok){
-        // p.textContent = `Error Status: ${response.status}.`;
-        document.body.style.backgroundColor = "red";
-        // return;
+// 1. Define the HTML content as a string (using a template literal for readability)
+const navbarHTML = `
+    <div id="title-div">
+        <h1>Planet Shop</h1>
+    </div>
+    <div id="nav-links-div">
+        <a href="about.html" class="nav-link-text">About</a>
+        <a href="faq.html" class="nav-link-text">FAQ</a>
+        <a href="#" class="nav-link-text">Contact</a>
+        <a href="login" class="nav-link-text">Login</a>
+        <a href="#" class="nav-link-text">Account</a>
+    </div>
+    <div id="search-div">
+        <button id="cart-button">
+            <i class="fa fa-shopping-cart"></i>
+        </button>
+        <input type="text" id="search-bar" placeholder="Search products...">
+        <button id="search-button">Search</button>
+    </div>
+`;
+
+document.addEventListener('DOMContentLoaded', () => {
+    const navbarElement = document.getElementById('navbar');
+    if (navbarElement) {
+        navbarElement.innerHTML = navbarHTML;
+    } else {
+        console.error("Error: Element with id 'navbar' not found. Cannot insert navigation bar.");
     }
-    else{
-        let data = await response.json(); 
-        if (!data.ok){
-            // p.textContent = "Couldn't find that word.";
-            document.body.style.backgroundColor = "blue";
-        }
-
-        // Remove all planets from the website; prepare to show the new ones
-        planetsLeft = document.getElementById("planets-left");  
-        planetsRight = document.getElementById("planets-right"); 
-        planetsLeft.innerHTML = ""; 
-        planetsRight.innerHTML = ""; 
-
-        // 50275 TODO: load more; make solar systems distinct
-        let left = true; 
-        for(let planet of data[0][0].planets){
-            // console.log(planet); 
-            
-            let image = document.createElement("img");
-            image.id = "planet-image";
-            image.src = planet.src; 
-            image.loading = "lazy";
-
-            let header = document.createElement("h4");
-            header.id = "planet-text"; 
-            header.textContent = `${planet.name}: ${planet.price}`;  
-            header.style.color = "white"; // this should be css
-            
-            let divider = document.createElement("div"); 
-            divider.id = "planet-container";
-            divider.appendChild(image); 
-            divider.appendChild(header); 
-
-            // Alternate adding planets between left and right side
-            if (left){
-                planetsLeft.appendChild(divider); 
-            } else {
-                planetsRight.appendChild(divider); 
-            }
-            left = !left; 
-        }
-    }
-    document.body.style.backgroundColor = "lightblue";
-})(); // <--- Immediately call the function
+});
