@@ -24,12 +24,16 @@ const navbarHTML = `
         <button id="search-button">Search</button>
     </div>
 `;
+const footerHTML = `
+<div class="footer-content">
+    &copy; 2025 Planet Shop by Gavin, Aiden and Emily.
+</div>
+`;
 
 document.addEventListener('DOMContentLoaded', () => {
     const navbarElement = document.getElementById('navbar');
-    if (navbarElement) {
-        navbarElement.innerHTML = navbarHTML;
-    } else {
-        console.error("Error: Element with id 'navbar' not found. Cannot insert navigation bar.");
-    }
+    navbarElement.innerHTML = navbarHTML;
+    const footerElement = document.querySelector('footer'); 
+    footerElement.innerHTML = footerHTML;
+
 });
