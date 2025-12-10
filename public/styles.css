@@ -70,6 +70,20 @@ body {
     opacity: 0.9;
 }
 
+#cart-button {
+    background-color: #6C5B7B;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+#cart-button:hover {
+    opacity: 0.9;
+}
+
 /* Main content */
 #main-content {
     flex: 1;
