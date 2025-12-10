@@ -27,6 +27,24 @@ app.get('/cart', (req, res) => {
     })
 })
 
+app.get('/login', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'login.html'), (err) => {
+        if (err) {
+            console.error(err)                                                                  
+            res.status(500).send('An error has occurred')
+        }
+    })
+})
+
+app.get('/about', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'about.html'), (err) => {
+        if (err) {
+            console.error(err)                                                                  
+            res.status(500).send('An error has occurred')
+        }
+    })
+})
+
 // serve mercury product page
 app.get('/mercury', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'products', 'mercury.html'), (err) => {
