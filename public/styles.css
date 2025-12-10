@@ -1,5 +1,5 @@
 * {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     margin: 0;
     padding: 0;
 }
@@ -8,14 +8,8 @@ h1 {
     font-size: 36px;
 }
 
-header {
-    background-color: #4B3F72;
-    color: #ccc;
-    padding: 20px;
-}
-
 body {
-    background-color: #ccc;
+    background-color: #E7E7E7;
     color: #333;
 }
 
@@ -24,21 +18,38 @@ h2 {
     margin: 20px;
 }
 
+#main-content {
+    margin-top: 140px;
+    padding: 20px;
+}
+
 #navbar {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    padding: 20px 0;
+    background-color: #EEEEEE;
+    color: #333;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    height: 100px;
+    width: 100%;
+}
+
+#title-div {
+    margin-left: 20px;
 }
 
 #nav-links-div {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
+    margin-right: 20px;
 }
-
-
 
 #search-div {
     display: flex;
@@ -124,13 +135,14 @@ h2 {
 }
 
 footer {
-    background-color: #4B3F72;
-    color: #ccc;
+    background-color: #EEEEEE;
+    color: #333;
     text-align: center;
     /* padding: 10px; DO NOT pad an object with 100% width please*/
     /* maybe box-sizing: border-box ? */
     bottom: 0;
     width: 100%;
+    padding: 20px 0;
 }
 
 .product-row-div:last-of-type {
