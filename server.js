@@ -1,6 +1,36 @@
 const express = require('express')
+const path = require('path')
+
 const app = express()
-const session = require('express-session');
+const PORT = process.env.PORT || 3000 
+
+app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'images')))
+
+// serve index.html
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/index.html'), (err) => {
+        if (err) {
+            console.error(err)
+            res.status(500).send('An error has occurred')
+        }
+    });
+})
+
+// send planets JSON
+app.get('/planets', (req, res) => {
+    res.json(starSystems)
+})
+
+// start server
+app.listen(PORT, () => {
+    console.log(`http://localhost:${PORT} and the time is ${new Date()}`)
+})
+
+// View engine
+app.set('view engine', 'pug')
+app.set('views', path.join(__dirname, 'views'))
+
 const starSystems = [
     [
         {
@@ -60,40 +90,15 @@ const starSystems = [
 // const authRoutes = require('./routes/auth');
 // const profileRoutes = require('./routes/profile');
 
-const PORT = process.env.PORT || 3000 
-const path = require('path')
-
-app.use(express.json());
-let x = path.join(__dirname, '..', 'images');
-console.log(x)
-app.use(express.static(x));
-app.use(express.static("../pages")) // currently unused
-app.use(express.static(__dirname))
+// app.use(express.json());
+// let x = path.join(__dirname, '..', 'images');
+// console.log(x)
+// app.use(express.static(x));
+// app.use(express.static("../pages")) // currently unused
+// app.use(express.static(__dirname))
 
 // 50275: you should contact me for more information but I'm tired rn
 // this array contains objects, some of which will be passed to the user -- decided at runtime
-
-
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'), (err) => {
-        if (err) {
-            console.error(err);
-            res.status(500).send('An error has occurred');
-        }
-    });
-})
-app.get('/planets', (req, res) => {
-    res.json(starSystems);
-})
-
-app.listen(PORT, () => {
-    console.log(`http://localhost:${PORT} and the time is ${new Date()}`)
-})
-
-// View engine
-app.set('view engine', 'pug');
-app.set('views', path.join(__dirname, 'views'));
-
 
 // // Body parsing
 // app.use(express.urlencoded({ extended: false }));
@@ -148,19 +153,3 @@ app.set('views', path.join(__dirname, 'views'));
 //   console.error(err);
 //   res.status(500).send('Something went wrong.');
 // });
-
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'), (err) => {
-        if (err) {
-            console.error(err);
-            res.status(500).send('An error has occurred');
-        }
-    });
-})
-app.get('/planets', (req, res) => {
-    res.json(starSystems);
-})
-
-app.listen(PORT, () => {
-    console.log(`http://localhost:${PORT} and the time is ${new Date()}`)
-})
