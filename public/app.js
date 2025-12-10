@@ -34,7 +34,6 @@ if (!window.location.host || window.location.protocol.substring(0, "file:".lengt
             image.id = "planet-image";
             image.src = planet.src; 
             image.loading = "lazy";
-            console.log(image.src); 
 
             let header = document.createElement("h4");
             header.id = "planet-text"; 
