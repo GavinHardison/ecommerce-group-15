@@ -1,53 +1,93 @@
-<!-- View your cart. -->
-
-<!-- 
-There isn't enough time to create all the JS and HTML code to create a proper and full implementation. 
-This is a HTML/CSS stage project... hmm. 
-I'm tired. 
-
--->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ecommerce Store</title>
+    <title>Planet Shop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="planet-styles.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="cart-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-    <!-- header from index.html -->
-    <header id="navbar">
+
+    <!-- Navbar -->
+    <nav id="navbar">
         <div id="title-div">
-            <h1><a>Ecommerce Store</a></h1>
+            <h1>Planet Shop</h1>
         </div>
         <div id="nav-links-div">
-            <div class="nav-link-div">
-                <h2 class="nav-link-text"><a>About</a></h2>
-            </div>
-            <div class="nav-link-div">
-                <h2 class="nav-link-text"><a>FAQ</a></h2>
-            </div>
-            <div id="user-profile-div" class="nav-link-div">
-                <h2 class="nav-link-text"><a>User Profile</a></h2>
-            </div>
-            <div id="search-div">
-                <input type="text" id="search-bar" placeholder="Search...">
-                <button type="button" id="search-button"> 
-                    <i class="material-icons">search</i>
-                </button>
-            </div>
+            <span class="nav-link-text">About</span>
+            <span class="nav-link-text">FAQ</span>
+            <span class="nav-link-text">Contact</span>
+            <span class="nav-link-text">Login</span>
+            <span class="nav-link-text">Account</span>
         </div>
-    </header>
+        <div id="search-div">
+            <button id="cart-button">
+                <i class="fa fa-shopping-cart"></i>
+            </button>
+            <input type="text" id="search-bar" placeholder="Search products...">
+            <button id="search-button">Search</button>
+        </div>
+    </nav>
+
+    <!-- Main content -->
     <main id="main-content">
-        <p>TODO: display planets in cart using JS. Note that cart hasn't been implemented yet, and neither has the display JS. from 50275 to 50275: make app.js readable and add function calls</p>
+        <h1 id="cart-title">Your Cart</h1>
+        <div id="cart-heading">
+            <span class="cart-heading-span"></span>
+            <span class="cart-heading-span">Item</span>
+            <span class="cart-heading-span">Price</span>
+            <span class="cart-heading-span">Quantity</span>
+            <span class="cart-heading-span">Total</span>
+            <span class="cart-heading-span"></span>
+        </div>
+        <div class="cart-item">
+            <img class="cart-item-image" src="images/earth.png" alt="Earth">
+            <span class="cart-item-name">Earth</span>
+            <span class="cart-item-price">$29.99</span>
+            <input type="number" class="cart-item-quantity" value="1" min="1">
+            <span class="cart-item-total">$29.99</span>
+            <button class="remove-item-button">Remove</button>
+        </div>
+        <div class="cart-item">
+            <img class="cart-item-image" src="images/mars.png" alt="Earth">
+            <span class="cart-item-name">Mars</span>
+            <span class="cart-item-price">$24.99</span>
+            <input type="number" class="cart-item-quantity" value="1" min="1">
+            <span class="cart-item-total">$24.99</span>
+            <button class="remove-item-button">Remove</button>
+        </div>
+        <div class="cart-item">
+            <img class="cart-item-image" src="images/saturn.jpeg" alt="Earth">
+            <span class="cart-item-name">Saturn</span>
+            <span class="cart-item-price">$34.99</span>
+            <input type="number" class="cart-item-quantity" value="1" min="1">
+            <span class="cart-item-total">$34.99</span>
+            <button class="remove-item-button">Remove</button>
+        </div>
+        <div class="cart-item">
+            <img class="cart-item-image" src="images/neptune.png" alt="Earth">
+            <span class="cart-item-name">Neptune</span>
+            <span class="cart-item-price">$34.99</span>
+            <input type="number" class="cart-item-quantity" value="1" min="1">
+            <span class="cart-item-total">$34.99</span>
+            <button class="remove-item-button">Remove</button>
+        </div>
+        <div id="cart-summary">
+            <span id="total-label">Total:</span>
+            <span id="total-amount">$124.96</span>
+        </div>
+        <button id="checkout-button">Proceed to Checkout</button>
     </main>
+
+    <!-- Footer -->
     <footer>
-        <p>&copy; 2025 Ecommerce Store</p>
+        <div class="footer-content">
+            &copy; 2025 Planet Shop by Gavin, Aiden and Emily.
+        </div>
     </footer>
+
 </body>
 </html>

@@ -5,6 +5,7 @@ const app = express()
 const PORT = process.env.PORT || 3000 
 
 app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'public', 'products')))
 
 // serve index.html
 app.get('/', (req, res) => {
@@ -13,7 +14,27 @@ app.get('/', (req, res) => {
             console.error(err)
             res.status(500).send('An error has occurred')
         }
-    });
+    })
+})
+
+// serve cart.html
+app.get('/cart', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'cart.html'), (err) => {
+        if (err) {
+            console.error(err)                                                                  
+            res.status(500).send('An error has occurred')
+        }
+    })
+})
+
+// serve mercury product page
+app.get('/mercury', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'products', 'mercury.html'), (err) => {
+        if (err) {
+            console.error(err)                                                                  
+            res.status(500).send('An error has occurred')
+        }
+    })
 })
 
 // send planets JSON
