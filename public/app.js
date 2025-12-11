@@ -14,7 +14,7 @@ const navbarHTML = `
         <a href="faq.html" class="nav-link-text">FAQ</a>
         <a href="#" class="nav-link-text">Contact</a>
         <a href="login" class="nav-link-text">Login</a>
-        <a href="#" class="nav-link-text">Account</a>
+        <a href="/dashboard" class="nav-link-text">Account</a>
     </div>
     <div id="search-div">
         <button id="cart-button">
