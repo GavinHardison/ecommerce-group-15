@@ -206,6 +206,15 @@ app.get('/products/tic241249530b', (req, res) => {
     })
 })
 
+app.get('/products/hd189773b', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'products', 'hd189773b.html'), (err) => {
+        if (err) {
+            console.error(err)
+            res.status(500).send('An error has occurred')
+        }
+    })
+})
+
 // send planets JSON
 app.get('/planets', (req, res) => {
     res.json(starSystems)
