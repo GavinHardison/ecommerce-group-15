@@ -242,6 +242,69 @@ app.get('/products/55cancrie', (req, res) => {
     })
 })
 
+app.get('/products/tres2b', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'products', 'tres2b.html'), (err) => {
+        if (err) {
+            console.error(err)
+            res.status(500).send('An error has occurred')
+        }
+    })
+})
+
+app.get('/products/kelt9b', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'products', 'kelt9b.html'), (err) => {
+        if (err) {
+            console.error(err)
+            res.status(500).send('An error has occurred')
+        }
+    })
+})
+
+app.get('/products/hr5183b', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'products', 'hr5183b.html'), (err) => {
+        if (err) {
+            console.error(err)
+            res.status(500).send('An error has occurred')
+        }
+    })
+})
+
+app.get('/products/k218b', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'products', 'k218b.html'), (err) => {
+        if (err) {
+            console.error(err)
+            res.status(500).send('An error has occurred')
+        }
+    })
+})
+
+app.get('/products/hatp7b', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'products', 'hatp7b.html'), (err) => {
+        if (err) {
+            console.error(err)
+            res.status(500).send('An error has occurred')
+        }
+    })
+})
+
+app.get('/products/wasp107b', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'products', 'wasp107b.html'), (err) => {
+        if (err) {
+            console.error(err)
+            res.status(500).send('An error has occurred')
+        }
+    })
+})
+
+app.get('/products/kepler452b', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'products', 'kepler452b.html'), (err) => {
+        if (err) {
+            console.error(err)
+            res.status(500).send('An error has occurred')
+        }
+    })
+})
+
 // send planets JSON
 app.get('/planets', (req, res) => {
     res.json(starSystems)
