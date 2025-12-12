@@ -125,7 +125,7 @@ app.get('/cart', (req, res) => {
 })
 
 // serve mercury product page
-app.get('/mercury', (req, res) => {
+app.get('/products/mercury', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'products', 'mercury.html'), (err) => {
         if (err) {
             console.error(err)
