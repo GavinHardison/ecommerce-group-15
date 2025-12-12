@@ -30,9 +30,21 @@ body {
     z-index: 1000;
 }
 
+#nav-link-home {
+    text-decoration: none;
+    color: #333;
+}
+
 #nav-links-div {
     display: flex;
     gap: 20px;
+}
+
+#nav-links-div a {
+    text-decoration: none;
+    color: #333;
+    font-size: 18px;
+    font-weight: 500;
 }
 
 .nav-link-text {

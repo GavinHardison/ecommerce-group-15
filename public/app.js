@@ -7,7 +7,7 @@
 // 1. Define the HTML content as a string (using a template literal for readability)
 const navbarHTML = `
     <div id="title-div">
-        <h1>Planet Shop</h1>
+        <h1><a href="index.html" id="nav-link-home">Planet Shop</a></h1>
     </div>
     <div id="nav-links-div">
         <a href="about.html" class="nav-link-text">About</a>
