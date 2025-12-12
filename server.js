@@ -233,6 +233,15 @@ app.get('/products/wasp12b', (req, res) => {
     })
 })
 
+app.get('/products/55cancrie', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'products', '55cancrie.html'), (err) => {
+        if (err) {
+            console.error(err)
+            res.status(500).send('An error has occurred')
+        }
+    })
+})
+
 // send planets JSON
 app.get('/planets', (req, res) => {
     res.json(starSystems)
