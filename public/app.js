@@ -10,14 +10,14 @@ const navbarHTML = `
         <h1><a href="index.html" id="nav-link-home">Planet Shop</a></h1>
     </div>
     <div id="nav-links-div">
-        <a href="about.html" class="nav-link-text">About</a>
-        <a href="faq.html" class="nav-link-text">FAQ</a>
-        <a href="#" class="nav-link-text">Contact</a>
-        <a href="login" class="nav-link-text">Login</a>
+        <a href="/about" class="nav-link-text">About</a>
+        <a href="/faq" class="nav-link-text">FAQ</a>
+        <a href="/contact" class="nav-link-text">Contact</a>
+        <a href="/login" class="nav-link-text">Login</a>
         <a href="/dashboard" class="nav-link-text">Account</a>
     </div>
     <div id="search-div">
-        <button id="cart-button">
+        <button id="cart-button" onclick="location.href='/cart'">
             <i class="fa fa-shopping-cart"></i>
         </button>
         <input type="text" id="search-bar" placeholder="Search products...">

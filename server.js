@@ -72,7 +72,7 @@ app.use((err, req, res, next) => {
 app.get('/cart', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'cart.html'), (err) => {
         if (err) {
-            console.error(err)                                                                  
+            console.error(err)
             res.status(500).send('An error has occurred')
         }
     })
@@ -80,18 +80,45 @@ app.get('/cart', (req, res) => {
 
 app.get('/login', (req, res) => {
     res.redirect('/login')
-    //res.sendFile(path.join(__dirname, 'public', 'login.html'), (err) => {
-    //    if (err) {
-    //        console.error(err)                                                                  
-    //        res.status(500).send('An error has occurred')
-    //    }
-    //})
+    // res.sendFile(path.join(__dirname, 'public', 'login.html'), (err) => {
+    //     if (err) {
+    //         console.error(err)   
+    //         res.status(500).send('An error has occurred')
+    //     }
+    // })
 })
 
 app.get('/about', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'about.html'), (err) => {
         if (err) {
-            console.error(err)                                                                  
+            console.error(err)
+            res.status(500).send('An error has occurred')
+        }
+    })
+})
+
+app.get('/faq', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'faq.html'), (err) => {
+        if (err) {
+            console.error(err)
+            res.status(500).send('An error has occurred')
+        }
+    })
+})
+
+app.get('/contact', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'contact.html'), (err) => {
+        if (err) {
+            console.error(err)
+            res.status(500).send('An error has occurred')
+        }
+    })
+})
+
+app.get('/cart', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'cart.html'), (err) => {
+        if (err) {
+            console.error(err)
             res.status(500).send('An error has occurred')
         }
     })
@@ -101,7 +128,7 @@ app.get('/about', (req, res) => {
 app.get('/mercury', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'products', 'mercury.html'), (err) => {
         if (err) {
-            console.error(err)                                                                  
+            console.error(err)
             res.status(500).send('An error has occurred')
         }
     })
