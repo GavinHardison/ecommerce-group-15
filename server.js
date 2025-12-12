@@ -179,6 +179,24 @@ app.get('/products/saturn', (req, res) => {
     })
 })
 
+app.get('/products/uranus', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'products', 'uranus.html'), (err) => {
+        if (err) {
+            console.error(err)
+            res.status(500).send('An error has occurred')
+        }
+    })
+})
+
+app.get('/products/neptune', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'products', 'neptune.html'), (err) => {
+        if (err) {
+            console.error(err)
+            res.status(500).send('An error has occurred')
+        }
+    })
+})
+
 // send planets JSON
 app.get('/planets', (req, res) => {
     res.json(starSystems)
