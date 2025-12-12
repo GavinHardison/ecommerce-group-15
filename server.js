@@ -143,6 +143,15 @@ app.get('/products/venus', (req, res) => {
     })
 })
 
+app.get('/products/earth', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'products', 'earth.html'), (err) => {
+        if (err) {
+            console.error(err)
+            res.status(500).send('An error has occurred')
+        }
+    })
+})
+
 // send planets JSON
 app.get('/planets', (req, res) => {
     res.json(starSystems)
