@@ -152,6 +152,15 @@ app.get('/products/earth', (req, res) => {
     })
 })
 
+app.get('/products/mars', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'products', 'mars.html'), (err) => {
+        if (err) {
+            console.error(err)
+            res.status(500).send('An error has occurred')
+        }
+    })
+})
+
 // send planets JSON
 app.get('/planets', (req, res) => {
     res.json(starSystems)
