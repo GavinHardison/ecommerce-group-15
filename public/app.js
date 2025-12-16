@@ -1,10 +1,33 @@
-/**
- * replaceNavbar.js
- * * This script finds the element with the ID 'navbar' and replaces
- * its content with the standard Planet Shop navigation bar HTML.
- */
+let cart = JSON.parse(localStorage.getItem('planetCart')) || [];
 
-// 1. Define the HTML content as a string (using a template literal for readability)
+function addToCart(planetId) {
+    cart.push(planetId);
+    // Save it back to the browser's memory
+    localStorage.setItem('planetCart', JSON.stringify(cart));
+    // alert("Planet added to cart!");
+}
+function clearCart(){
+    // Clear the cart in memory 
+    cart = []; 
+    // Clear the cart in storage
+    localStorage.removeItem("planetCart")
+    // Refresh all the buttons  
+    location.reload(); 
+}
+
+async function handleCheckout() {
+    const response = await fetch('/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cartIds: cart })
+    });
+    
+    if (response.ok) {
+        localStorage.removeItem('planetCart'); // Clear cart after buying
+        location.reload(); // Refresh to show "Sold Out" stickers
+    }
+}
+
 const navbarHTML = `
     <div id="title-div">
         <h1><a href="/" id="nav-link-home">Planet Shop</a></h1>
@@ -20,8 +43,8 @@ const navbarHTML = `
         <button id="cart-button" onclick="location.href='/cart'">
             <i class="fa fa-shopping-cart"></i>
         </button>
-        <input type="text" id="search-bar" placeholder="Search products...">
-        <button id="search-button">Search</button>
+<!--        <input type="text" id="search-bar" placeholder="Search products..."> i'm sorry but i cannot add search function due to time restraints -->    
+        <button id="search-button">Clear Cart</button>
     </div>
 `;
 const footerHTML = `
@@ -55,7 +78,7 @@ async function fetchData() {
         // document.getElementById('content-container').innerHTML = `<p style="color:red;">Error loading data: ${error.message}</p>`;
     }
 }
-function createProductDiv(name, displayName, imageSrc, alt, price){
+function createProductDiv(name, displayName, imageSrc, alt, price, id){
     const internalName = displayName ? displayName : name.toLowerCase(); 
     const productDiv = document.createElement('div');
     productDiv.classList.add('product-div');
@@ -89,14 +112,61 @@ function createProductDiv(name, displayName, imageSrc, alt, price){
     const addToCartButton = document.createElement('button');
     addToCartButton.classList.add('add-to-cart-button');
     addToCartButton.textContent = "Add to Cart";
+    addToCartButton.id = `button${id}`; 
+    updateButton(addToCartButton); 
+    addToCartButton.addEventListener('click', (event) => productCartEventListener(event))
+    addToCartButton.dataset.planetId = id; 
     productDiv.appendChild(addToCartButton);
     return productDiv; 
+}
+
+// Update the button, so it shows whether or not the item is in your cart. 
+updateButton = (button) => {
+    let id = button.dataset.planetId; 
+    if (cart.includes(id)){
+        button.textContent = "Remove from Cart" 
+        button.style.backgroundColor = "#73700D"; // Yellow
+    } else {
+        button.textContent = "Add to Cart"
+        button.style.backgroundColor = "#4B3F72"; // Purple
+    }
+}
+// Interact with the button, removing the item from your cart if you have it, or adding it to your cart if you don't. 
+productCartEventListener = (event) => {
+    let id = event.currentTarget.planetId; 
+    let button = event.currentTarget; 
+    if (event.target.tagName === 'BUTTON') {
+        console.log("Clicked button ID:", event.target.id);
+        // addToCart(event.target.id.match(/button([1-9]\d*)/)[1]);
+        // console.log(cart); 
+        // console.log(id);  
+        if (cart.includes(id)){
+            // Change the button to "Add Item", and remove the button
+            button.textContent = "Add to Cart"
+            button.style.backgroundColor = "#4B3F72"; // Purple
+            cart = cart.filter(item => item !== id);
+        } else {
+            // Change the button to "Remove Item", and add the button
+            button.textContent = "Remove from Cart" 
+            button.style.backgroundColor = "#73700D"; // Yellow
+            addToCart(id); 
+        }
+        localStorage.setItem('planetCart', JSON.stringify(cart));
+    }
 }
 
 // Renders the current page. Unfortunately, it has no error handling and if broken breaks horribly. 
 async function initialize(){
     let data = await fetchData();
-    // console.log(data); 
+    
+    // only for testing right now
+    // document.querySelector("#cart-button").addEventListener('click', (event) => {
+    document.querySelector("#search-button").addEventListener('click', (event) => {
+        if (event.target.tagName === 'BUTTON') {
+            console.log(cart);
+            clearCart(); 
+        }
+    });
     if(window.location.pathname == "/" || window.location.pathname == "/index.html"){ // LINE 99
         // serve all the planets
         elementMain = document.getElementsByClassName("product-grid-div")[0];
@@ -106,7 +176,8 @@ async function initialize(){
             planet.internalName ? planet.internalName : null, // i assure you this is fine-
             planet.src, // i have no way of automatically detecting image file extensions :( [at least not a good way]
             planet.alt ? planet.alt : planet.name, 
-            planet.price
+            planet.price, 
+            planet.id
         ))); 
     }else if(window.location.pathname.startsWith("/products/")){ // LINE 110 
         // serve just the chosen planet
@@ -129,6 +200,13 @@ async function initialize(){
         document.querySelector("#product-description").textContent = planet.description; 
 
         document.querySelector("#product-price").textContent = `$${planet.price}`; 
+
+        let detailButton = document.querySelector("#add-to-cart-button")
+        detailButton.dataset.planetId = planet.id; 
+        detailButton.addEventListener("click", event => productCartEventListener(event))
+        updateButton(detailButton); 
+    } else if (window.location.pathname.endsWith("/cart")) {
+        
     }
 }
 initialize(); 
