@@ -48,7 +48,7 @@ async function fetchData() {
         }
         
         const planetData = await response.json();
-        console.log(planetData); 
+        // console.log(planetData); 
         return planetData; 
     } catch (error) {
         console.error('Could not fetch or render data:', error);
@@ -95,31 +95,54 @@ function createProductDiv(name, displayName, imageSrc, alt, price){
 
 async function initialize(){
     let data = await fetchData();
-    console.log(data); 
-    if(window.location.pathname == "/" || window.location.pathname == "/index.html"){
+    // console.log(data); 
+    if(window.location.pathname == "/" || window.location.pathname == "/index.html"){ // LINE 99
         // serve all the planets
         elementMain = document.getElementsByClassName("product-grid-div")[0];
         elementMain.innerHTML = "";         
-        data.forEach(planet => elementMain.appendChild(createProductDiv(planet.name, 
-            planet.internalName ? planet.internalName : null, 
+        data.forEach(planet => elementMain.appendChild(createProductDiv(
+            planet.name, 
+            planet.internalName ? planet.internalName : null, // i assure you this is fine-
             planet.src, // i have no way of automatically detecting image file extensions :( [at least not a good way]
             planet.alt ? planet.alt : planet.name, 
             planet.price
         ))); 
-    }else if(window.location.pathname.startsWith("/products/")){
-    
+    }else if(window.location.pathname.startsWith("/products/")){ // LINE 110 
+        // serve just the chosen planet
+        
+        // get planet name [internal name]
+        let name = window.location.pathname.split("/"); 
+        name = name[name.length-1]; 
+        let planet = data.find(u => u.internalName == name); 
+
+        // oh dear god his format is different
+        // okay here's the plan
+        // I know there's exactly one element to load so I don't have to nuke everything
+        // the key targets I don't already have information are just product-description
+        document.querySelector("#product-title").textContent = planet.name; 
+        
+        let elementProductImage = document.querySelector("#product-image"); 
+        elementProductImage.src = `/images/${planet.src}`; // Line 125 
+        // elementProductImage.src = planet.src; // Line 126
+        elementProductImage.alt = planet.alt; 
+
+        document.querySelector("#product-description").textContent = planet.description; 
+
+        document.querySelector("#product-price").textContent = `$${planet.price}`; 
     }
 }
 initialize(); 
 
 // <main id="main-content">
-//         <div class="product-grid-div">
-//             <div class="product-div">
-//                 <a href="/products/mercury" class="product-image-link">
-//                     <img class="product-image" src="images/mercury.png" alt="Mercury">
-//                 </a>
-//                 <h3 class="product-name">Mercury</h3>
-//                 <p class="product-price">$19.99</p>
-//                 <button class="add-to-cart-button">Add to Cart</button>
-//             </div>
-//             <div class="product-div">
+// <h1 id="product-title">Mercury</h1>
+// <div id="product-detail-div">
+//     <img id="product-image" src="/images/mercury.png" alt="Mercury">
+//     <div id="product-info-div">
+//         <p id="product-description">
+//             Mercury is the smallest planet in the Solar System and the one closest to the Sun, completing a full orbit in just 88 days. Because it has almost no atmosphere, heat cannot be trapped, causing drastic temperature swings—from scorching daytime highs to freezing nighttime lows. Its heavily cratered, gray surface resembles Earth&#39;s Moon, shaped by ancient impacts and lava flows. Despite being close to the Sun, Mercury isn&#39;t the hottest planet; instead, it&#39;s a stark, airless world where conditions vary dramatically depending on which side faces the Sun.
+//         </p>
+//         <p id="product-price">$19.99</p>
+//         <button id="add-to-cart-button">Add to Cart</button>
+//     </div>
+// </div>
+// </main>
