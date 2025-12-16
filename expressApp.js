@@ -2,7 +2,8 @@
 const express = require('express');
 const path = require('path');
 const session = require('express-session');
-const planets = require("./planets"); 
+// const planets = require("./planets"); 
+const planets = require("./server"); 
 
 const authRoutes = require('./routes/auth');
 const profileRoutes = require('./routes/profile');
@@ -155,4 +156,4 @@ app.get('/planets', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
 });
-module.exports = app; 
+module.exports = {app, PORT}; 

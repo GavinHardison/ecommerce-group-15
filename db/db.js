@@ -41,7 +41,7 @@ function addProduct({name, description, src, price}){
     const sql = `INSERT INTO products (name, description, src, price, stock) VALUES (?, ?, ?, ?, ?)`;
     // planets are unique, you won't have clones
     db.run(sql, [name, description, src, price, 1], function (err) {
-      if (err) return false;
+      if (err) return reject(err);
       resolve({ id: this.lastID, name: name, price: price });
     });
   });
@@ -50,7 +50,7 @@ function addProduct({name, description, src, price}){
 function getProductByName(name){
   return new Promise((resolve, reject) => {
     db.get(`SELECT * FROM products WHERE name = ?`, [name], (err, row) => {
-      if (err) return false;
+      if (err) return reject(err);
       resolve(row || null);
     });
   });
@@ -59,8 +59,22 @@ function getProductByName(name){
 function getProductById(id){
   return new Promise((resolve, reject) => {
     db.get(`SELECT * FROM products WHERE id = ?`, [id], (err, row) => {
-      if (err) return false;
+      if (err) return reject(err);
       resolve(row || null);
+    });
+  });
+}
+function getAllProducts() {
+  return new Promise((resolve, reject) => {
+    // db.all() is used here to select ALL rows from the 'products' table.
+    // The result (rows) will be an array of all product objects.
+    db.all(`SELECT * FROM products`, (err, rows) => {
+      if (err) {
+        // If there's an error, reject the promise
+        return reject(err);
+      }
+      // Resolve with the array of all rows (products)
+      resolve(rows);
     });
   });
 }
@@ -126,5 +140,6 @@ module.exports = {
   
   addProduct, 
   getProductByName, 
-  getProductById
+  getProductById,
+  getAllProducts
 };

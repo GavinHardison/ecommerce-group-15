@@ -1,4 +1,7 @@
-// Exports the planets object. 
+// Add all planet objects to the repository. 
+// This file must be run manually by the user. 
+
+const {closeDb, addProduct, getProductByName, getProductById, getAllProducts} = require("./db/db.js");
 const planets = [
     {
         name: 'Mercury',
@@ -144,5 +147,20 @@ const planets = [
 
 planets.forEach(planet => {
     planet.internalName = planet.internalName ? planet.internalName : planet.name.toLowerCase(); 
-}); 
-module.exports = planets; 
+});
+
+async function initializeData() {
+    for (const planet of planets) {
+        try {
+            await addProduct(planet); 
+        } catch (error) {
+            if (!error.message.includes('SQLITE_CONSTRAINT')) {
+                console.error('Error adding product:', error);
+            }
+        }
+    }
+    // const firstPlanet = await getProductById(1); 
+    // console.log(firstPlanet);
+}
+initializeData(); 
+// module.exports = planets; 

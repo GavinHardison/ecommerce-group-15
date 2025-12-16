@@ -1,33 +1,14 @@
-const planets = require("./planets"); 
-const app = require("./expressApp"); 
+// ./planets.js: A file that must be run manually by the host. Adds all planet objects to the database. Does not stack. 
+// ./expressApp.js: A file that contains all express-related code. 
+// ./server.js: A file containing code I haven't organized yet. 
 
-const {closeDb, addProduct, getProductByName, getProductById } = require("./db/db.js");
-
-async function initializeData() {
-    console.log("before");
-    for (const planet of planets) {
-        try {
-            await addProduct(planet); 
-        } catch (error) {
-            if (!error.message.includes('SQLITE_CONSTRAINT')) {
-                console.error('Error adding product:', error);
-            }
-        }
-    }
-    console.log("middle");
-    const firstPlanet = await getProductById(1); 
-    console.log("after");
-    console.log(firstPlanet);
-}
+const {closeDb, addProduct, getProductByName, getProductById, getAllProducts} = require("./db/db.js");
+var planets = undefined; 
 
 async function startServer() {
-    // 1. Wait for database initialization to fully complete
-    await initializeData(); 
-
-    // 2. Start the Express server ONLY after the data is ready
-    app.listen(PORT, () => {
-        console.log(`Server running at http://localhost:${PORT}`);
-    });
+    planets = await getAllProducts(); 
+    module.exports = planets;
+    const {app, PORT} = require("./expressApp"); 
 }
 
 // Kick off the combined process
