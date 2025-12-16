@@ -114,12 +114,11 @@ async function initialize(){
         // get planet name [internal name]
         let name = window.location.pathname.split("/"); 
         name = name[name.length-1]; 
+        // console.log(name); 
+        // console.log(data);  
         let planet = data.find(u => u.internalName == name); 
 
-        // oh dear god his format is different
-        // okay here's the plan
-        // I know there's exactly one element to load so I don't have to nuke everything
-        // the key targets I don't already have information are just product-description
+        // console.log(planet); 
         document.querySelector("#product-title").textContent = planet.name; 
         
         let elementProductImage = document.querySelector("#product-image"); 

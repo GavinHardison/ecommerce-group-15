@@ -29,6 +29,7 @@ db.serialize(() => {
     `CREATE TABLE IF NOT EXISTS products (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT UNIQUE NOT NULL, 
+      internalName TEXT UNIQUE NOT NULL, 
       description TEXT,
       src TEXT NOT NULL,
       price FLOAT NOT NULL, 
@@ -36,13 +37,24 @@ db.serialize(() => {
     )`
   );
 });
-function addProduct({name, description, src, price}){
+function addProduct({name, internalName, description, src, price, stock=1}){
   return new Promise((resolve, reject) => {
-    const sql = `INSERT INTO products (name, description, src, price, stock) VALUES (?, ?, ?, ?, ?)`;
+    const sql = `INSERT INTO products (name, internalName, description, src, price, stock) VALUES (?, ?, ?, ?, ?, ?)`;
     // planets are unique, you won't have clones
-    db.run(sql, [name, description, src, price, 1], function (err) {
+    db.run(sql, [name, internalName, description, src, price, 1], function (err) {
       if (err) return reject(err);
-      resolve({ id: this.lastID, name: name, price: price });
+      resolve({ id: this.lastID, name: name, internalName: internalName, description: description, src: src, price: price, stock: 1});
+    });
+  });
+}
+
+function purchaseProduct(id) {
+  return new Promise((resolve, reject) => {
+    // We set stock to 0 to "mark as purchased"
+    const sql = `UPDATE products SET stock = 0 WHERE id = ?`;
+    db.run(sql, [id], function (err) {
+      if (err) return reject(err);
+      resolve({ success: this.changes > 0 });
     });
   });
 }
@@ -141,5 +153,6 @@ module.exports = {
   addProduct, 
   getProductByName, 
   getProductById,
+  purchaseProduct, 
   getAllProducts
 };
