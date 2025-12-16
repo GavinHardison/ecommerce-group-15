@@ -1,3 +1,4 @@
+// Exports the planets object. 
 const planets = [
     {
         name: 'Mercury',
@@ -140,4 +141,8 @@ const planets = [
         description: "Kepler-452 b is a super-Earth orbiting within the habitable zone of a Sun-like star, often called “Earth's cousin.” It is about 60% larger than Earth and may have a rocky surface, though its exact composition is still unknown. The planet receives a similar amount of stellar energy as Earth, suggesting temperatures that could allow liquid water. While much remains uncertain, Kepler-452 b is considered one of the most promising candidates for studying potentially habitable worlds beyond our Solar System."
     }
 ];
+
+planets.forEach(planet => {
+    planet.internalName = planet.internalName ? planet.internalName : planet.name.toLowerCase(); 
+}); 
 module.exports = planets; 
