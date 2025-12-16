@@ -15,7 +15,43 @@ db.serialize(() => {
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )`
   );
+  db.run(
+    `CREATE TABLE IF NOT EXISTS products (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT UNIQUE NOT NULL, 
+      description TEXT,
+      src TEXT NOT NULL,
+      price FLOAT NOT NULL
+    )`
+  );
 });
+function addProduct({name, description, src, price}){
+  return new Promise((resolve, reject) => {
+    const sql = `INSERT INTO products (name, description, src, price) VALUES (?, ?, ?, ?)`;
+    db.run(sql, [name, description, src, price], function (err) {
+      if (err) return false;
+      resolve({ id: this.lastID, username, email });
+    });
+  });
+}
+
+function getProductByName(name){
+  return new Promise((resolve, reject) => {
+    db.get(`SELECT * FROM products WHERE name = ?`, [name], (err, row) => {
+      if (err) return false;
+      resolve(row || null);
+    });
+  });
+}
+
+function getProductById(id){
+  return new Promise((resolve, reject) => {
+    db.get(`SELECT * FROM products WHERE id = ?`, [id], (err, row) => {
+      if (err) return false;
+      resolve(row || null);
+    });
+  });
+}
 
 function createUser({ username, email, passwordHash }) {
   return new Promise((resolve, reject) => {
@@ -59,5 +95,9 @@ module.exports = {
   createUser,
   findUserByUsername,
   findUserByEmail,
-  findUserById
+  findUserById, 
+  
+  addProduct, 
+  getProductByName, 
+  getProductById
 };

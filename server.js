@@ -5,6 +5,8 @@ const session = require('express-session');
 const authRoutes = require('./routes/auth');
 const profileRoutes = require('./routes/profile');
 
+const {addProduct, getProductByName, getProductById} = require("./db/db.js"); 
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -124,9 +126,9 @@ app.get('/cart', (req, res) => {
     })
 })
 
-// serve mercury product page
-app.get('/products/mercury', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'products', 'mercury.html'), (err) => {
+// serve all product pages at once actually
+app.get('/products/:planet', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'products', `${req.params.planet}.html`), (err) => {
         if (err) {
             console.error(err)
             res.status(500).send('An error has occurred')
@@ -134,181 +136,6 @@ app.get('/products/mercury', (req, res) => {
     })
 })
 
-app.get('/products/venus', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'products', 'venus.html'), (err) => {
-        if (err) {
-            console.error(err)
-            res.status(500).send('An error has occurred')
-        }
-    })
-})
-
-app.get('/products/earth', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'products', 'earth.html'), (err) => {
-        if (err) {
-            console.error(err)
-            res.status(500).send('An error has occurred')
-        }
-    })
-})
-
-app.get('/products/mars', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'products', 'mars.html'), (err) => {
-        if (err) {
-            console.error(err)
-            res.status(500).send('An error has occurred')
-        }
-    })
-})
-
-app.get('/products/jupiter', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'products', 'jupiter.html'), (err) => {
-        if (err) {
-            console.error(err)
-            res.status(500).send('An error has occurred')
-        }
-    })
-})
-
-app.get('/products/saturn', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'products', 'saturn.html'), (err) => {
-        if (err) {
-            console.error(err)
-            res.status(500).send('An error has occurred')
-        }
-    })
-})
-
-app.get('/products/uranus', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'products', 'uranus.html'), (err) => {
-        if (err) {
-            console.error(err)
-            res.status(500).send('An error has occurred')
-        }
-    })
-})
-
-app.get('/products/neptune', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'products', 'neptune.html'), (err) => {
-        if (err) {
-            console.error(err)
-            res.status(500).send('An error has occurred')
-        }
-    })
-})
-
-app.get('/products/tic241249530b', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'products', 'tic241249530b.html'), (err) => {
-        if (err) {
-            console.error(err)
-            res.status(500).send('An error has occurred')
-        }
-    })
-})
-
-app.get('/products/hd189773b', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'products', 'hd189773b.html'), (err) => {
-        if (err) {
-            console.error(err)
-            res.status(500).send('An error has occurred')
-        }
-    })
-})
-
-app.get('/products/toi849b', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'products', 'toi849b.html'), (err) => {
-        if (err) {
-            console.error(err)
-            res.status(500).send('An error has occurred')
-        }
-    })
-})
-
-app.get('/products/wasp12b', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'products', 'wasp12b.html'), (err) => {
-        if (err) {
-            console.error(err)
-            res.status(500).send('An error has occurred')
-        }
-    })
-})
-
-app.get('/products/55cancrie', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'products', '55cancrie.html'), (err) => {
-        if (err) {
-            console.error(err)
-            res.status(500).send('An error has occurred')
-        }
-    })
-})
-
-app.get('/products/tres2b', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'products', 'tres2b.html'), (err) => {
-        if (err) {
-            console.error(err)
-            res.status(500).send('An error has occurred')
-        }
-    })
-})
-
-app.get('/products/kelt9b', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'products', 'kelt9b.html'), (err) => {
-        if (err) {
-            console.error(err)
-            res.status(500).send('An error has occurred')
-        }
-    })
-})
-
-app.get('/products/hr5183b', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'products', 'hr5183b.html'), (err) => {
-        if (err) {
-            console.error(err)
-            res.status(500).send('An error has occurred')
-        }
-    })
-})
-
-app.get('/products/k218b', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'products', 'k218b.html'), (err) => {
-        if (err) {
-            console.error(err)
-            res.status(500).send('An error has occurred')
-        }
-    })
-})
-
-app.get('/products/hatp7b', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'products', 'hatp7b.html'), (err) => {
-        if (err) {
-            console.error(err)
-            res.status(500).send('An error has occurred')
-        }
-    })
-})
-
-app.get('/products/wasp107b', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'products', 'wasp107b.html'), (err) => {
-        if (err) {
-            console.error(err)
-            res.status(500).send('An error has occurred')
-        }
-    })
-})
-
-app.get('/products/kepler452b', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'products', 'kepler452b.html'), (err) => {
-        if (err) {
-            console.error(err)
-            res.status(500).send('An error has occurred')
-        }
-    })
-})
-
-// send planets JSON
-app.get('/planets', (req, res) => {
-    res.json(starSystems)
-})
 // // serve index.html
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/index.html'), (err) => {
@@ -319,68 +146,56 @@ app.get('/', (req, res) => {
     })
 })
 
-const starSystems = [
-    [
-        {
-            name: "solarSystem",
-            displayName: "Solar System",
-            planets: [
-                // TODO this should be loaded from an SQL database actually 
-                // TODO track whether or not the object has been purchased
-                // TODO shouldn't the alt text contain pricing information? 
-                // https://www.pexels.com/search/earth/
-                {
-                    name: "Mercury",
-                    src: "mercury.png",   
-                    alt: "Picture of Mercury", 
-                    price: 9.99
-                }, {
-                    name: "Venus", 
-                    src: "venus.png", 
-                    alt: "Picture of Venus",
-                    price: 12.99
-                }, {
-                    name: "Earth",
-                    src: "earth.png",
-                    alt: "Picture of Earth",
-                    price: 15.99
-                }, {
-                    name: "Mars",
-                    src: "mars.png",
-                    alt: "Picture of Mars", 
-                    price: 18.99
-                }, {
-                    name: "Jupiter",
-                    src: "jupiter.png",
-                    alt: "Picture of Jupiter", 
-                    price: 21.99
-                }, {
-                    name: "Saturn", 
-                    src: "saturn.png",
-                    alt: "Picture of Saturn", 
-                    price: 24.99
-                }, {
-                    name: "Uranus", 
-                    src: "uranus.png", 
-                    alt: "Picture of Uranus", 
-                    price: 27.99
-                }, {
-                    name: "Neptune", 
-                    src: "neptune.png", 
-                    alt: "Picture of Neptune", 
-                    price: 30.99
-                }
-            ]
-        }   
-    ]
-]; 
 
+const planets = [
+    {
+        name: "Mercury",
+        src: "mercury.png",   
+        alt: "Picture of Mercury", 
+        price: 9.99
+    }, {
+        name: "Venus", 
+        src: "venus.png", 
+        alt: "Picture of Venus",
+        price: 12.99
+    }, {
+        name: "Earth",
+        src: "earth.png",
+        alt: "Picture of Earth",
+        price: 15.99
+    }, {
+        name: "Mars",
+        src: "mars.png",
+        alt: "Picture of Mars", 
+        price: 18.99
+    }, {
+        name: "Jupiter",
+        src: "jupiter.png",
+        alt: "Picture of Jupiter", 
+        price: 21.99
+    }, {
+        name: "Saturn", 
+        src: "saturn.jpeg",
+        alt: "Picture of Saturn", 
+        price: 24.99
+    }, {
+        name: "Uranus", 
+        src: "uranus.png", 
+        alt: "Picture of Uranus", 
+        price: 27.99
+    }, {
+        name: "Neptune", 
+        src: "neptune.png", 
+        alt: "Picture of Neptune", 
+        price: 30.99
+    }
+];
 
-
-
-
-
-
+// send planets JSON
+app.get('/planets', (req, res) => {
+    res.json(planets)
+})
+planets.forEach(product => addProduct(product.name, "description", product.src, product.price));  
 
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
