@@ -168,7 +168,7 @@ app.post('/checkout', (req, res) => {
         res.status(200).json({ message: "Order processed successfully" });
         itemsToBuy.forEach(item => {
             // this is only a database function its really silly
-            planets.find(planet => planet.id == item); 
+            planets.find(planet => planet.id == item).stock--; 
             purchaseProduct(item)
         });
         console.log(planets); 

@@ -197,7 +197,7 @@ async function handleCheckout() {
 // Renders the current page. Unfortunately, it has no error handling and if broken breaks horribly. 
 async function initialize(){
     let data = await fetchData();
-    data.filter(item => item.stock > 0); 
+    data = data.filter(item => item.stock > 0); 
     // console.log(data.find(u => u.stock == 0)); 
     
     // only for testing right now
@@ -220,6 +220,12 @@ async function initialize(){
             planet.price, 
             planet.id
         ))); 
+        if(data.length == 0){
+            // run planets.js to reset
+            let elementH3 = document.createElement("h2"); 
+            elementH3.textContent = "Sold Out"; 
+            elementMain.appendChild(elementH3); 
+        }
     }else if(window.location.pathname.startsWith("/products/")){ // LINE 110 
         // serve just the chosen planet
         
