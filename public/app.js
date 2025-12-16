@@ -55,8 +55,8 @@ async function fetchData() {
         // document.getElementById('content-container').innerHTML = `<p style="color:red;">Error loading data: ${error.message}</p>`;
     }
 }
-function createProductDiv(name, imageSrc, alt, price){
-    const internalName = name.toLowerCase(); 
+function createProductDiv(name, displayName, imageSrc, alt, price){
+    const internalName = displayName ? displayName : name.toLowerCase(); 
     const productDiv = document.createElement('div');
     productDiv.classList.add('product-div');
 
@@ -100,7 +100,12 @@ async function initialize(){
         // serve all the planets
         elementMain = document.getElementsByClassName("product-grid-div")[0];
         elementMain.innerHTML = "";         
-        data.forEach(planet => elementMain.appendChild(createProductDiv(planet.name, planet.src, planet.alt ? planet.alt : "", planet.price)))
+        data.forEach(planet => elementMain.appendChild(createProductDiv(planet.name, 
+            planet.internalName ? planet.internalName : null, 
+            planet.src, // i have no way of automatically detecting image file extensions :( [at least not a good way]
+            planet.alt ? planet.alt : planet.name, 
+            planet.price
+        ))); 
     }else if(window.location.pathname.startsWith("/products/")){
     
     }
