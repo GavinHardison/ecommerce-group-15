@@ -153,6 +153,20 @@ app.get('/planets', (req, res) => {
 })
 // planets.forEach(product => addProduct(product.name, "description", product.src, product.price));
 
+app.post('/checkout', (req, res) => {
+    const itemsToBuy = req.body.cartIds; // This is your array of IDs
+    
+    console.log("Processing order for items:", itemsToBuy);
+
+    // Logic: Here you would update your database to mark planets as "Sold"
+    if (itemsToBuy && itemsToBuy.length > 0) {
+        // SUCCESS
+        res.status(200).json({ message: "Order processed successfully" });
+    } else {
+        // FAILURE
+        res.status(400).json({ message: "No items provided" });
+    }
+});
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
 });

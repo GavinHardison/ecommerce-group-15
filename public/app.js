@@ -23,7 +23,7 @@ async function handleCheckout() {
     });
     
     if (response.ok) {
-        localStorage.removeItem('planetCart'); // Clear cart after buying
+        clearCart(); // Clear cart after buying
         location.reload(); // Refresh to show "Sold Out" stickers
     }
 }
@@ -133,7 +133,7 @@ updateButton = (button) => {
 }
 // Interact with the button, removing the item from your cart if you have it, or adding it to your cart if you don't. 
 productCartEventListener = (event) => {
-    let id = event.currentTarget.planetId; 
+    let id = event.currentTarget.dataset.planetId; 
     let button = event.currentTarget; 
     if (event.target.tagName === 'BUTTON') {
         console.log("Clicked button ID:", event.target.id);
@@ -152,6 +152,46 @@ productCartEventListener = (event) => {
             addToCart(id); 
         }
         localStorage.setItem('planetCart', JSON.stringify(cart));
+    }
+}
+
+async function handleCheckout() {
+    // 1. Validation: Don't try to buy an empty cart
+    if (cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+    }
+
+    try {
+        // 2. Send the request
+        const response = await fetch('/checkout', {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json' 
+            },
+            body: JSON.stringify({ 
+                cartIds: cart,
+                timestamp: new Date().toISOString() 
+            })
+        });
+
+        // 3. Handle the server response
+        if (response.ok) {
+            alert("Purchase successful! Your planets are on the way.");
+            
+            // Clear everything now that the server has confirmed it
+            cart = [];
+            localStorage.removeItem('planetCart');
+            
+            // Redirect to a 'success' page or reload to show fresh state
+            window.location.href = "/dashboard"; 
+        } else {
+            const errorData = await response.json();
+            alert(`Checkout failed: ${errorData.message || "Unknown error"}`);
+        }
+    } catch (error) {
+        console.error("Network error during checkout:", error);
+        alert("Could not connect to the server. Please try again later.");
     }
 }
 
@@ -206,21 +246,66 @@ async function initialize(){
         detailButton.addEventListener("click", event => productCartEventListener(event))
         updateButton(detailButton); 
     } else if (window.location.pathname.endsWith("/cart")) {
-        
+        let main = document.querySelector("#main-content");
+        let summary = document.querySelector("#cart-summary");
+        let total = 0; 
+        // 1. Create a wrapper for all your cart items
+        let cartItemsContainer = document.createElement("div");
+        cartItemsContainer.id = "cart-items-list";
+    
+        for (let planetId of cart) {
+            // 2. Find the planet object that matches this ID
+            // Note: Use == because planetId from dataset might be a string
+            let planet = data.find(p => p.id == planetId); 
+            
+            if (!planet) continue; // Skip if for some reason the ID isn't found
+    
+            let elementDiv = document.createElement("div"); 
+            elementDiv.className = "cart-item";
+    
+            // Fix: Use 'img' tag and 'className' instead of 'class'
+            let elementImg = document.createElement("img"); 
+            elementImg.className = "cart-item-image"; 
+            elementImg.src = `/images/${planet.src}`; 
+            elementImg.alt = planet.name;
+            elementDiv.appendChild(elementImg); 
+    
+            let elementSpan1 = document.createElement("div");
+            elementSpan1.className = "cart-item-name";
+            elementSpan1.textContent = planet.name;
+            elementDiv.appendChild(elementSpan1); 
+    
+            let elementSpan2 = document.createElement("div"); 
+            elementSpan2.className = "cart-item-price";
+            elementSpan2.textContent = `$${planet.price}`;  
+            elementDiv.appendChild(elementSpan2); 
+            total += planet.price; 
+    
+            // let elementP = document.createElement("p");
+            // elementP.textContent = "1"; 
+            // elementDiv.appendChild(elementP); 
+    
+            main.appendChild(elementDiv); 
+            cartItemsContainer.appendChild(elementDiv);
+        }
+    
+        // 2. Insert the whole container before the summary div
+        summary.before(cartItemsContainer);
+        document.querySelector("#total-amount").textContent = `$${total}`
+        document.querySelector("#checkout-button").addEventListener("click", event => {
+            // TODO tell the server to erase products
+            handleCheckout();
+        })
     }
 }
 initialize(); 
 
-// <main id="main-content">
-// <h1 id="product-title">Mercury</h1>
-// <div id="product-detail-div">
-//     <img id="product-image" src="/images/mercury.png" alt="Mercury">
-//     <div id="product-info-div">
-//         <p id="product-description">
-//             Mercury is the smallest planet in the Solar System and the one closest to the Sun, completing a full orbit in just 88 days. Because it has almost no atmosphere, heat cannot be trapped, causing drastic temperature swings—from scorching daytime highs to freezing nighttime lows. Its heavily cratered, gray surface resembles Earth&#39;s Moon, shaped by ancient impacts and lava flows. Despite being close to the Sun, Mercury isn&#39;t the hottest planet; instead, it&#39;s a stark, airless world where conditions vary dramatically depending on which side faces the Sun.
-//         </p>
-//         <p id="product-price">$19.99</p>
-//         <button id="add-to-cart-button">Add to Cart</button>
-//     </div>
+
+// <div class="cart-item">
+//      <img class="cart-item-image" src="images/earth.png" alt="Earth">
+//      <span class="cart-item-name">Earth</span>
+//      <span class="cart-item-price">$29.99</span>
+//      <input type="number" class="cart-item-quantity" value="1" min="1">
+//      <span class="cart-item-total">$29.99</span>
+//      <button class="remove-item-button">Remove</button>
 // </div>
-// </main>
