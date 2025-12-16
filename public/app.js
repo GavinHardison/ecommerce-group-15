@@ -113,12 +113,12 @@ function createProductDiv(name, displayName, imageSrc, alt, price, id){
     addToCartButton.classList.add('add-to-cart-button');
     addToCartButton.textContent = "Add to Cart";
     addToCartButton.id = `button${id}`; 
-    updateButton(addToCartButton); 
     addToCartButton.addEventListener('click', (event) => productCartEventListener(event))
     addToCartButton.dataset.planetId = id; 
     productDiv.appendChild(addToCartButton);
+    updateButton(addToCartButton); 
     return productDiv; 
-}
+}   
 
 // Update the button, so it shows whether or not the item is in your cart. 
 updateButton = (button) => {
@@ -136,7 +136,6 @@ productCartEventListener = (event) => {
     let id = event.currentTarget.dataset.planetId; 
     let button = event.currentTarget; 
     if (event.target.tagName === 'BUTTON') {
-        console.log("Clicked button ID:", event.target.id);
         // addToCart(event.target.id.match(/button([1-9]\d*)/)[1]);
         // console.log(cart); 
         // console.log(id);  
@@ -198,6 +197,8 @@ async function handleCheckout() {
 // Renders the current page. Unfortunately, it has no error handling and if broken breaks horribly. 
 async function initialize(){
     let data = await fetchData();
+    data.filter(item => item.stock > 0); 
+    // console.log(data.find(u => u.stock == 0)); 
     
     // only for testing right now
     // document.querySelector("#cart-button").addEventListener('click', (event) => {
@@ -279,7 +280,7 @@ async function initialize(){
             elementSpan2.className = "cart-item-price";
             elementSpan2.textContent = `$${planet.price}`;  
             elementDiv.appendChild(elementSpan2); 
-            total += planet.price; 
+            total += planet.price * 100; 
     
             // let elementP = document.createElement("p");
             // elementP.textContent = "1"; 
@@ -291,7 +292,7 @@ async function initialize(){
     
         // 2. Insert the whole container before the summary div
         summary.before(cartItemsContainer);
-        document.querySelector("#total-amount").textContent = `$${total}`
+        document.querySelector("#total-amount").textContent = `$${total / 100}`
         document.querySelector("#checkout-button").addEventListener("click", event => {
             // TODO tell the server to erase products
             handleCheckout();

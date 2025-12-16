@@ -1,7 +1,9 @@
-// Add all planet objects to the repository. 
+// Overwrite all planet objects and product information in permanent storage. (not RAM)
 // This file must be run manually by the user. 
 
-const {closeDb, addProduct, getProductByName, getProductById, getAllProducts} = require("./db/db.js");
+// somehow resetProductsTable seems to be buggy and needs to be run multiple times? 
+
+const {closeDb, addProduct, getProductByName, getProductById, getAllProducts, resetProductsTable} = require("./db/db.js");
 const planets = [
     {
         name: 'Mercury',
@@ -162,5 +164,6 @@ async function initializeData() {
     // const firstPlanet = await getProductById(1); 
     // console.log(firstPlanet);
 }
+resetProductsTable(); 
 initializeData(); 
 // module.exports = planets; 

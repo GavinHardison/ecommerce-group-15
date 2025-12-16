@@ -7,6 +7,7 @@ const planets = require("./server");
 
 const authRoutes = require('./routes/auth');
 const profileRoutes = require('./routes/profile');
+const { purchaseProduct } = require('./db/db');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -165,6 +166,12 @@ app.post('/checkout', (req, res) => {
     if (itemsToBuy && itemsToBuy.length > 0) {
         // SUCCESS
         res.status(200).json({ message: "Order processed successfully" });
+        itemsToBuy.forEach(item => {
+            // this is only a database function its really silly
+            planets.find(planet => planet.id == item); 
+            purchaseProduct(item)
+        });
+        console.log(planets); 
     } else {
         // FAILURE
         res.status(400).json({ message: "No items provided" });
