@@ -93,6 +93,7 @@ function createProductDiv(name, displayName, imageSrc, alt, price){
     return productDiv; 
 }
 
+// Renders the current page. Unfortunately, it has no error handling and if broken breaks horribly. 
 async function initialize(){
     let data = await fetchData();
     // console.log(data); 

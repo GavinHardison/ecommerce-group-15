@@ -5,7 +5,7 @@ const session = require('express-session');
 const authRoutes = require('./routes/auth');
 const profileRoutes = require('./routes/profile');
 
-const { addProduct, getProductByName, getProductById } = require("./db/db.js");
+const {closeDb, addProduct, getProductByName, getProductById } = require("./db/db.js");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -295,14 +295,45 @@ const planets = [
         description: "Kepler-452 b is a super-Earth orbiting within the habitable zone of a Sun-like star, often called “Earth's cousin.” It is about 60% larger than Earth and may have a rocky surface, though its exact composition is still unknown. The planet receives a similar amount of stellar energy as Earth, suggesting temperatures that could allow liquid water. While much remains uncertain, Kepler-452 b is considered one of the most promising candidates for studying potentially habitable worlds beyond our Solar System."
     }
 ];
-planets.forEach(planet => planet.internalName = planet.internalName ? planet.internalName : planet.name.toLowerCase()); 
+planets.forEach(planet => {
+    planet.internalName = planet.internalName ? planet.internalName : planet.name.toLowerCase(); 
+}); 
 
+async function initializeData() {
+    console.log("before");
+    for (const planet of planets) {
+        try {
+            await addProduct(planet); 
+        } catch (error) {
+            if (!error.message.includes('SQLITE_CONSTRAINT')) {
+                console.error('Error adding product:', error);
+            }
+        }
+    }
+    console.log("middle");
+    const firstPlanet = await getProductById(1); 
+    console.log("after");
+    console.log(firstPlanet);
+}
+
+async function startServer() {
+    // 1. Wait for database initialization to fully complete
+    await initializeData(); 
+
+    // 2. Start the Express server ONLY after the data is ready
+    app.listen(PORT, () => {
+        console.log(`Server running at http://localhost:${PORT}`);
+    });
+}
+
+// Kick off the combined process
+startServer();
 // send planets JSON
 // it would be better if you sent a version with the descriptions sent by default, but I'm out of time
 app.get('/planets', (req, res) => {
     res.json(planets)
 })
-planets.forEach(product => addProduct(product.name, "description", product.src, product.price));
+// planets.forEach(product => addProduct(product.name, "description", product.src, product.price));
 
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);

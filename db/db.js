@@ -15,22 +15,34 @@ db.serialize(() => {
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )`
   );
+  // I know I will need this later
+  // db.run(`DROP TABLE IF EXISTS products`,
+  //   (err) => {
+  //     if (err) {
+  //       console.error("Error dropping products table:", err.message);
+  //     } else {
+  //       console.log("Products table dropped successfully.");
+  //     }
+  //   }
+  // );
   db.run(
     `CREATE TABLE IF NOT EXISTS products (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT UNIQUE NOT NULL, 
       description TEXT,
       src TEXT NOT NULL,
-      price FLOAT NOT NULL
+      price FLOAT NOT NULL, 
+      stock INTEGER NOT NULL
     )`
   );
 });
 function addProduct({name, description, src, price}){
   return new Promise((resolve, reject) => {
-    const sql = `INSERT INTO products (name, description, src, price) VALUES (?, ?, ?, ?)`;
-    db.run(sql, [name, description, src, price], function (err) {
+    const sql = `INSERT INTO products (name, description, src, price, stock) VALUES (?, ?, ?, ?, ?)`;
+    // planets are unique, you won't have clones
+    db.run(sql, [name, description, src, price, 1], function (err) {
       if (err) return false;
-      resolve({ id: this.lastID, username, email });
+      resolve({ id: this.lastID, name: name, price: price });
     });
   });
 }
@@ -89,9 +101,24 @@ function findUserById(id) {
     });
   });
 }
+function closeDb() {
+  return new Promise((resolve, reject) => {
+    db.close(err => {
+      if (err) {
+        console.error("Error closing database:", err.message);
+        return reject(err);
+      }
+      console.log('Database connection closed.');
+      resolve();
+    });
+  });
+}
 
 module.exports = {
   db,
+
+  closeDb, 
+
   createUser,
   findUserByUsername,
   findUserByEmail,
