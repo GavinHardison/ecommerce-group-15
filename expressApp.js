@@ -15,6 +15,9 @@ const PORT = process.env.PORT || 3000;
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
+// json
+app.use(express.json()); 
+
 // Static files
 app.use(express.static(path.join(__dirname, 'public')));
 
