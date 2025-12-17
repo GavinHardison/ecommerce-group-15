@@ -1,0 +1,30 @@
+#about-title {
+    text-align: center;
+    font-size: 36px;
+    margin-top: 40px;
+}
+
+#about-description {
+    margin-top: 20px;
+    line-height: 1.6;
+    font-size: 18px;
+    color: #444;
+}
+
+#about-mission {
+    margin-top: 30px;
+    font-style: italic;
+    font-size: 20px;
+    color: #666;
+}
+
+#contact-methods {
+    margin-top: 40px;
+    font-size: 18px;
+}
+
+#about-commitment {
+    margin-top: 30px;
+    font-size: 18px;
+    color: #333;
+}

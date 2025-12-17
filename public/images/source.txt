@@ -1,0 +1,8 @@
+earth: https://images.pexels.com/photos/87651/earth-blue-planet-globe-planet-87651.jpeg
+venus: https://en.wikipedia.org/wiki/Venus
+mercury: https://en.wikipedia.org/wiki/Mercury_(planet)
+mars: https://en.wikipedia.org/wiki/Mars
+jupiter: https://en.wikipedia.org/wiki/Jupiter
+saturn: https://en.wikipedia.org/wiki/Saturn
+uranus: https://en.wikipedia.org/wiki/Uranus
+neptune: https://en.wikipedia.org/wiki/Neptune

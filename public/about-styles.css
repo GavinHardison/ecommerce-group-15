@@ -1,0 +1,18 @@
+#about-title {
+     text-align: center;
+     margin-bottom: 20px;
+     font-size: 36px;
+}
+
+#about-description, #about-mission, #about-commitment {
+    font-size: 18px;
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+#about-image {
+    display: block;
+    margin: 30px auto;
+    max-width: 100%;
+    height: auto;
+}
