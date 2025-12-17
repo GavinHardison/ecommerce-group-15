@@ -150,6 +150,9 @@ const planets = [
 planets.forEach(planet => {
     planet.internalName = planet.internalName ? planet.internalName : planet.name.toLowerCase(); 
 });
+// for (planet of planets){
+//     planet.internalName = planet.internalName ? planet.internalName : planet.name.toLowerCase(); 
+// }
 
 async function initializeData() {
     for (const planet of planets) {
@@ -166,4 +169,3 @@ async function initializeData() {
 }
 resetProductsTable(); 
 initializeData(); 
-// module.exports = planets; 

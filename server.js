@@ -3,10 +3,12 @@
 // ./server.js: A file containing code I haven't organized yet. 
 
 const {closeDb, addProduct, getProductByName, getProductById, getAllProducts, dbReady} = require("./db/db.js");
-
-async function startServer() {
+async function function1(){
     await dbReady; 
     require("./planets") // reset products table.. sort of
+}
+async function startServer() {
+    await function1(); 
     let planets = await getAllProducts(); 
     module.exports = planets;
     const {app, PORT} = require("./expressApp"); 
