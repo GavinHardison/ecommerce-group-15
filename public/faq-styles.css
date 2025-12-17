@@ -1,0 +1,15 @@
+#main-content h1 {
+    text-align: center;
+    font-size: 36px;
+}
+
+#faq-section {
+    margin-top: 40px;
+    line-height: 1.6;
+    font-size: 18px;
+    color: #444;
+}
+
+.faq-item {
+    margin-bottom: 30px;
+}

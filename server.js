@@ -1,0 +1,14 @@
+// ./planets.js: When run manually: attempts to add all planet objects to the database. Database doesn't accept duplicates. 
+// ./expressApp.js: Contains all serverside express-related code.  
+// ./server.js: A file containing code I haven't organized yet. 
+
+const {closeDb, addProduct, getProductByName, getProductById, getAllProducts} = require("./db/db.js");
+
+async function startServer() {
+    let planets = await getAllProducts(); 
+    module.exports = planets;
+    const {app, PORT} = require("./expressApp"); 
+}
+
+// Kick off the combined process
+startServer();
