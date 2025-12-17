@@ -28,15 +28,15 @@ db.serialize(() => {
 });
 // Replace the products table with a blank entry. 
 function resetProductsTable(){
-  db.run(`DROP TABLE IF EXISTS products`,
-    (err) => {
-      if (err) {
-        console.error("Error dropping products table:", err.message);
-      } else {
-        console.log("Products table dropped successfully.");
-      }
-    }
-  );
+  //db.run(`DROP TABLE IF EXISTS products`,
+  //  (err) => {
+  //    if (err) {
+  //      console.error("Error dropping products table:", err.message);
+  //    } else {
+  //      console.log("Products table dropped successfully.");
+  //    }
+  //  }
+  //);
   db.run(
     `CREATE TABLE IF NOT EXISTS products (
       id INTEGER PRIMARY KEY AUTOINCREMENT,

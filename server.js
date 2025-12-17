@@ -5,6 +5,7 @@
 const {closeDb, addProduct, getProductByName, getProductById, getAllProducts} = require("./db/db.js");
 
 async function startServer() {
+    require("./planets") // reset products table.. sort of
     let planets = await getAllProducts(); 
     module.exports = planets;
     const {app, PORT} = require("./expressApp"); 

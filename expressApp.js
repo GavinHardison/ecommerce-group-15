@@ -165,12 +165,18 @@ app.post('/checkout', (req, res) => {
     // Logic: Here you would update your database to mark planets as "Sold"
     if (itemsToBuy && itemsToBuy.length > 0) {
         // SUCCESS
-        res.status(200).json({ message: "Order processed successfully" });
+        let cantPurchase = []; 
         itemsToBuy.forEach(item => {
             // this is only a database function its really silly
-            planets.find(planet => planet.id == item).stock--; 
-            purchaseProduct(item)
+            let itemInMemory = planets.find(planet => planet.id == item);
+            if (!itemInMemory || itemInMemory.stock < 1){
+                cantPurchase.push(itemInMemory.id); 
+            }else{
+                itemInMemory.stock--; 
+                purchaseProduct(item)
+            }
         });
+        res.status(200).json({ message: "Order processed successfully", cantPurchase});
         console.log(planets); 
     } else {
         // FAILURE
