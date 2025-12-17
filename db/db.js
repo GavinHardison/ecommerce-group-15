@@ -5,26 +5,31 @@ const dbPath = path.join(__dirname, '..', 'data.sqlite');
 const db = new sqlite3.Database(dbPath);
 
 // Create users table
-db.serialize(() => {
-  db.run(
-    `CREATE TABLE IF NOT EXISTS users (
+const dbReady = new Promise((resolve, reject) => {
+  db.serialize(() => {
+    // Create Users
+    db.run(`CREATE TABLE IF NOT EXISTS users (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       username TEXT UNIQUE NOT NULL,
       email TEXT UNIQUE NOT NULL,
       password_hash TEXT NOT NULL,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-    )`
-  );
-  // I know I will need this later
-  // db.run(`DROP TABLE IF EXISTS products`,
-  //   (err) => {
-  //     if (err) {
-  //       console.error("Error dropping products table:", err.message);
-  //     } else {
-  //       console.log("Products table dropped successfully.");
-  //     }
-  //   }
-  // );
+    )`);
+
+    // Create Products (moved inside serialize so it happens automatically)
+    db.run(`CREATE TABLE IF NOT EXISTS products (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT UNIQUE NOT NULL, 
+      internalName TEXT UNIQUE NOT NULL, 
+      description TEXT,
+      src TEXT NOT NULL,
+      price FLOAT NOT NULL, 
+      stock INTEGER NOT NULL
+    )`, (err) => {
+      if (err) reject(err);
+      else resolve(); // Tables are now ready!
+    });
+  });
 });
 // Replace the products table with a blank entry. 
 function resetProductsTable(){
@@ -155,7 +160,8 @@ function closeDb() {
 
 module.exports = {
   db,
-
+  dbReady, 
+  
   closeDb, 
 
   createUser,

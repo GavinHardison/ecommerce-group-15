@@ -2,9 +2,10 @@
 // ./expressApp.js: Contains all serverside express-related code.  
 // ./server.js: A file containing code I haven't organized yet. 
 
-const {closeDb, addProduct, getProductByName, getProductById, getAllProducts} = require("./db/db.js");
+const {closeDb, addProduct, getProductByName, getProductById, getAllProducts, dbReady} = require("./db/db.js");
 
 async function startServer() {
+    await dbReady; 
     require("./planets") // reset products table.. sort of
     let planets = await getAllProducts(); 
     module.exports = planets;
